@@ -22,7 +22,7 @@ Wishlist:
 
 ```objective-c
 #import "QOTDURLProtocol.h"
-...
+
 // Register our NSURLProtocol subclass
 [NSURLProtocol registerClass:[QOTDURLProtocol class]];
 
