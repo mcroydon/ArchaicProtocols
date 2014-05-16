@@ -1,7 +1,15 @@
-pod "ArchaicProtocols", :path => "../"
+platform :ios, '7.0' 
 
-target "Demo" do
+def import_pods
+	pod "ArchaicProtocols", :path => "../"
 end
 
-target "DemoTests" do
+target "Example", :exclusive => true do
+	import_pods
+	link_with "Example"
+end
+
+target "ExampleTests", :exclusive => true do
+	import_pods
+	link_with "ExampleTests"
 end

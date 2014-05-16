@@ -1,5 +1,5 @@
 # ArchaicProtocols CHANGELOG
 
-## 0.1.0
+## 0.1.0-pre
 
-Initial release.
+Initial project skeleton.

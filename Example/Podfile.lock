@@ -1,0 +1,14 @@
+PODS:
+  - ArchaicProtocols (0.1.0-pre)
+
+DEPENDENCIES:
+  - ArchaicProtocols (from `../`)
+
+EXTERNAL SOURCES:
+  ArchaicProtocols:
+    :path: ../
+
+SPEC CHECKSUMS:
+  ArchaicProtocols: 425e51ac8651157c0708fd6b46c22774e3f4eab8
+
+COCOAPODS: 0.32.1
