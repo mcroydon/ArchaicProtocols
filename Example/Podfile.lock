@@ -1,5 +1,5 @@
 PODS:
-  - ArchaicProtocols (0.1.0-pre)
+  - ArchaicProtocols (0.1.1)
 
 DEPENDENCIES:
   - ArchaicProtocols (from `../`)
@@ -9,6 +9,6 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  ArchaicProtocols: 425e51ac8651157c0708fd6b46c22774e3f4eab8
+  ArchaicProtocols: 0a47d08512089987e85d70c67329ad9cfce72161
 
 COCOAPODS: 0.32.1
