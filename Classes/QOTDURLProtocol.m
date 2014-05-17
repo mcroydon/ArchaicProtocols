@@ -1,8 +1,11 @@
+#import "ArchaicURLProtocol.h"
 #import "QOTDURLProtocol.h"
 
 @implementation QOTDURLProtocol
-{
-	NSInputStream *stream;
+
+-(instancetype)init{
+    self = [super init];
+    return self;
 }
 
 +(BOOL) canInitWithRequest:(NSURLRequest *)request
@@ -11,10 +14,6 @@
 		return YES;
 	}
 	return NO;
-}
-
-+(NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request{
-	return request;
 }
 
 -(void)startLoading
@@ -71,7 +70,7 @@
         case NSStreamEventEndEncountered:
         {
             NSLog(@"End of stream.");
-            [self close];
+            [super close];
 			[self.client URLProtocolDidFinishLoading:self];
 			break;
         }
@@ -80,24 +79,6 @@
 			NSLog(@"Unknown event");
             break;
 	}
-}
-
--(void)stopLoading
-{
-    [self close];
-}
-
-/**
- Closes the QOTD `NSStream`. This is not meant to be called on its own but is used by `QOTDUrlProtocol`.
- */
--(void)close
-{
-    if (stream) {
-        [stream removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-        stream.delegate = nil;
-        [stream close];
-        stream = nil;
-    }
 }
 
 @end

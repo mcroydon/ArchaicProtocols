@@ -61,6 +61,7 @@
             previousCount = byteCount;
         }
     }
+    XCTAssertNotEqual(previousCount, -1, @"Did not recieve any bytes.");
 }
 
 -(void)testBadHost
