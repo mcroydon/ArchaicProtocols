@@ -5,7 +5,8 @@
  */
 @interface ArchaicURLProtocol : NSURLProtocol<NSStreamDelegate>
 {
-	NSInputStream *stream;
+    NSInputStream *inputStream;
+    NSOutputStream *outputStream;
 }
 
 /**
@@ -21,8 +22,24 @@
 -(void)stopLoading;
 
 /**
- Closes the QOTD `NSStream`. This is not meant to be called on its own but is used by `QOTDUrlProtocol`.
+ Closes both input and output streams if they haven't already been closed.
+
+ @warning This is not meant to be called directly.
  */
 -(void)close;
+
+/**
+ Closes the input stream if it hasn't already been closed.
+
+ @warning This is not meant to be called directly.
+ */
+-(void)closeInput;
+
+/**
+ Closes the output stream if it hasn't already been closed.
+
+ @warning This is not meant to be called directly.
+ */
+-(void)closeOutput;
 
 @end
