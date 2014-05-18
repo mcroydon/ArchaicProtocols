@@ -55,7 +55,7 @@
         }
 
         default:
-			NSLog(@"Unknown event");
+			NSLog(@"Unknown event %@", [NSNumber numberWithInt:streamEvent]);
             break;
 	}
 }

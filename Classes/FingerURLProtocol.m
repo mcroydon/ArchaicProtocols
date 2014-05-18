@@ -93,7 +93,7 @@
         }
             
         default:
-			NSLog(@"Unknown event %d", streamEvent);
+			NSLog(@"Unknown event %@", [NSNumber numberWithInt:streamEvent]);
             break;
 	}
 }
