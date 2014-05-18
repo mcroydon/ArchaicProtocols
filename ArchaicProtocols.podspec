@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "ArchaicProtocols"
-  s.version          = "0.1.2"
+  s.version          = "0.1.3-pre"
   s.summary          = "NSURLProtocol wrappers for archaic protocols."
   s.description      = <<-DESC
                        Currently supported:

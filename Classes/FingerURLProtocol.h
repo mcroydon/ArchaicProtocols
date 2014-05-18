@@ -2,14 +2,14 @@
 #import "ArchaicURLProtocol.h"
 
 /**
- `FingerURLProtocol` is a subclass of `NSURLProtocol` that enables the use of the original Finger protocol as defined in RFC 742 (http://tools.ietf.org/html/rfc742). It also implements `NSStreamDelegate` in order to communicate with the underlying network stream.
+ `FingerURLProtocol` is a subclass of `NSURLProtocol` that enables the use of the original Finger protocol as defined in [RFC 742](http://tools.ietf.org/html/rfc742) It also implements `NSStreamDelegate` in order to communicate with the underlying network stream.
  
  Example URL formats supported:
  
     finger://bathroom.mit.edu
     finger://help@bathroom.mit.edu
  
- @warning *Note:* `FingerURLProtocol` does not support the advanced functionality outlined in RFC 1288 (http://tools.ietf.org/html/rfc1288) including recursive hostname lookups.
+ @warning *Note:* `FingerURLProtocol` does not support the advanced functionality outlined in [RFC 1288](http://tools.ietf.org/html/rfc1288) including recursive hostname lookups.
  */
 @interface FingerURLProtocol : ArchaicURLProtocol
 
