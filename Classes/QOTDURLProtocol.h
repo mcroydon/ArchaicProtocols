@@ -3,6 +3,8 @@
 
 /**
  `QOTDURLProtocol` is a subclass of `NSURLProtocol` that implements the QOTD protocol as defined in RFC 862 (http://tools.ietf.org/html/rfc862). It also implements `NSStreamDelegate` in order to communicate with the underlying network stream.
+
+ Wikipedia keeps a list of currently active QOTD servers here: http://en.wikipedia.org/wiki/QOTD#List_of_currently_operational_QOTD_servers
  */
 @interface QOTDURLProtocol : ArchaicURLProtocol
 
