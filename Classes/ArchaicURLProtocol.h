@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 
 /**
- `QOTDURLProtocol` is a subclass of `NSURLProtocol` that serves as the base of other more specific archaic protocols.
+ `ArchaicURLProtocol` is a subclass of `NSURLProtocol` that serves as the base of other more specific archaic protocols.
  */
 @interface ArchaicURLProtocol : NSURLProtocol<NSStreamDelegate>
 {
@@ -11,7 +11,7 @@
 
 /**
  The `NSURLRequest` is not altered in these subclassses.
- 
+
  @param request The `NSURLRequest` to process.
  */
 +(NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request;
