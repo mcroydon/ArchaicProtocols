@@ -69,6 +69,30 @@ NSURLSessionDataTask *task = [session dataTaskWithURL:qotd completionHandler:^(N
 [task resume];
 ```
 
+### Daytime
+
+```objective-c
+#import "DaytimeURLProtocol.h"
+
+// Register our NSURLProtocol subclass
+[NSURLProtocol registerClass:[DaytimeURLProtocol class]];
+
+// Create a QTOD URL
+NSURL *daytime = [NSURL URLWithString:@"daytime://time-c.nist.gov/"];
+
+// Get the default session
+NSURLSession *session = [NSURLSession sharedSession];
+
+// Create a task and run it
+NSURLSessionDataTask *task = [session dataTaskWithURL:daytime completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    NSLog(@"Response encoded %@ with error %@.", response.MIMEType, error);
+    NSString *responseString = [[NSString alloc] initWithData: data
+                                                     encoding: NSASCIIStringEncoding];
+    NSLog(@"Full response:\n%@", responseString);
+}];
+[task resume];
+```
+
 ## Usage
 
 To run the example project; clone the repo, and run `pod install` from the Example directory first.

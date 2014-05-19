@@ -1,5 +1,10 @@
 # ArchaicProtocols CHANGELOG
 
+## 0.1.3-pre
+
+* Daytime protocol support.
+* Documentation and test improvements.
+
 ## 0.1.2
 
 * Finger support.

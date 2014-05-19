@@ -16,6 +16,8 @@
  */
 +(NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request;
 
+-(void)startLoadingWithPort:(NSInteger)port;
+
 /**
  Stops loading the request and close the underlying screen.
  */

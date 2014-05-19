@@ -11,6 +11,23 @@
 	return request;
 }
 
+-(void)startLoadingWithPort:(NSInteger)port
+{
+        CFReadStreamRef readStream;
+        CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)self.request.URL.host, (int)port, &readStream, NULL);
+        inputStream = (__bridge NSInputStream *)readStream;
+        [inputStream setDelegate:self];
+        [inputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+        [inputStream open];
+        NSURLResponse *response = [[NSURLResponse alloc] initWithURL:[self.request URL]
+                                                            MIMEType:@"text/plain"
+                                               expectedContentLength:-1
+                                                    textEncodingName:nil];
+        [self.client URLProtocol:self didReceiveResponse:response
+              cacheStoragePolicy:NSURLCacheStorageNotAllowed];
+}
+
+
 /**
  Handles responses from the `NSStream`, sending messages via the `NSURLProtocolClient` as the stream is processed.
 
