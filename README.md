@@ -77,7 +77,7 @@ NSURLSessionDataTask *task = [session dataTaskWithURL:qotd completionHandler:^(N
 // Register our NSURLProtocol subclass
 [NSURLProtocol registerClass:[DaytimeURLProtocol class]];
 
-// Create a QTOD URL
+// Create a Daytime URL
 NSURL *daytime = [NSURL URLWithString:@"daytime://time-c.nist.gov/"];
 
 // Get the default session
