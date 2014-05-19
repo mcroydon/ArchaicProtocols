@@ -103,7 +103,7 @@
 - (void)testFinger
 {
     NSURLSessionDataTask *task = [session dataTaskWithURL:finger completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        XCTAssertEqualObjects(response.URL, qotd, @"Resposne URL did not match request URL.");
+        XCTAssertEqualObjects(response.URL, finger, @"Response URL did not match request URL.");
         NSLog(@"Response encoded %@ with error %@.", response.MIMEType, error);
         NSString *responseString = [[NSString alloc] initWithData: data
                                                          encoding: NSASCIIStringEncoding];

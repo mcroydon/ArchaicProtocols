@@ -36,7 +36,7 @@ NSURL *finger = [NSURL URLWithString:@"finger://help@bathroom.mit.edu/"];
 NSURLSession *session = [NSURLSession sharedSession];
 
 // Create a task and run it
-NSURLSessionDataTask *task = [session dataTaskWithURL:qotd completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+NSURLSessionDataTask *task = [session dataTaskWithURL:finger completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
     NSLog(@"Response encoded %@ with error %@.", response.MIMEType, error);
     NSString *responseString = [[NSString alloc] initWithData: data
                                                      encoding: NSASCIIStringEncoding];
@@ -86,7 +86,7 @@ To run tests, clone the repo, open Example.xcworkspace in the Example directory,
 
 Tests are in Example/ExampleTests/ExampleTests.m and can be run with Product -> Test. The tests are also a complete example of ArchaicProtocols in action.
 
-If you run in to errors during build, remove `libPods-Example.a` from the Link Binary With Libraries under Build Phases. See [this CocoaPods issue](https://github.com/CocoaPods/CocoaPods/issues/1729) for more information. 
+If you run in to errors during build, remove `libPods-Example.a` from the Link Binary With Libraries under Build Phases. See [this CocoaPods issue](https://github.com/CocoaPods/CocoaPods/issues/1729) for more information.
 
 ## Development Status
 
