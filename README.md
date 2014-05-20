@@ -11,12 +11,13 @@ Why? Why not!
 
 Currently implemented:
 
+* [Daytime](http://en.wikipedia.org/wiki/Daytime_Protocol)
+* [Echo](http://en.wikipedia.org/wiki/Echo_Protocol)
 * [Finger](http://en.wikipedia.org/wiki/Finger_protocol)
 * [QOTD](http://en.wikipedia.org/wiki/QOTD)
 
 Wishlist:
 
-* Echo
 * Gopher
 
 ## Examples
