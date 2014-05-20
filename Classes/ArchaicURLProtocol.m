@@ -13,18 +13,22 @@
 
 -(void)startLoadingWithPort:(NSInteger)port
 {
-        CFReadStreamRef readStream;
-        CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)self.request.URL.host, (int)port, &readStream, NULL);
-        inputStream = (__bridge NSInputStream *)readStream;
-        [inputStream setDelegate:self];
-        [inputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-        [inputStream open];
-        NSURLResponse *response = [[NSURLResponse alloc] initWithURL:[self.request URL]
-                                                            MIMEType:@"text/plain"
-                                               expectedContentLength:-1
-                                                    textEncodingName:nil];
-        [self.client URLProtocol:self didReceiveResponse:response
-              cacheStoragePolicy:NSURLCacheStorageNotAllowed];
+    CFReadStreamRef readStream;
+    CFWriteStreamRef writeStream;
+    CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)self.request.URL.host, (int)port, &readStream, &writeStream);
+    inputStream = (__bridge NSInputStream *)readStream;
+    outputStream = (__bridge NSOutputStream *)writeStream;
+    [inputStream setDelegate:self];
+    [outputStream setDelegate:self];
+    [inputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [outputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [inputStream open];
+    [outputStream open];
+    NSURLResponse *response = [[NSURLResponse alloc] initWithURL:[self.request URL]
+                                                        MIMEType:@"text/plain"
+                                            expectedContentLength:-1
+                                                textEncodingName:nil];
+    [self.client URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed];
 }
 
 
@@ -85,6 +89,7 @@
 
 -(void)closeInput {
     if (inputStream) {
+        [inputStream close];
         [inputStream removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
         inputStream.delegate = nil;
         [inputStream close];
@@ -94,6 +99,7 @@
 
 -(void)closeOutput {
     if (outputStream) {
+        [outputStream close];
         [outputStream removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
         outputStream.delegate = nil;
         [outputStream close];

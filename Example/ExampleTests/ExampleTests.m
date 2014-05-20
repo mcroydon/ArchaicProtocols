@@ -10,12 +10,14 @@
 #import "QOTDURLProtocol.h"
 #import "FingerURLProtocol.h"
 #import "DaytimeURLProtocol.h"
+#import "EchoURLProtocol.h"
 
 @interface ExampleTests : XCTestCase
 {
     NSURL *qotd;
     NSURL *finger;
     NSURL *daytime;
+    NSURL *echo;
     NSURLSession *session;
 }
 
@@ -41,6 +43,11 @@
     registered = [NSURLProtocol registerClass:[DaytimeURLProtocol class]];
     XCTAssertTrue(registered, @"Unable to register DaytimeURLProtocol.");
     daytime = [NSURL URLWithString:@"daytime://time-c.nist.gov/"];
+
+    // Echo
+    registered = [NSURLProtocol registerClass:[EchoURLProtocol class]];
+    XCTAssertTrue(registered, @"Unable to register EchoURLProtocol.");
+    echo = [NSURL URLWithString:@"echo://protocolmuseum.postneo.com/?hello"];
 
     session = [NSURLSession sharedSession];
 }
@@ -69,7 +76,7 @@
             NSString *responseString = [[NSString alloc] initWithData: data
                                               encoding: NSASCIIStringEncoding];
             XCTAssertTrue([responseString length] > 0, @"Expected a response string with content.");
-            NSLog(@"Full response:\n%@", responseString);
+            NSLog(@"Full QOTD response:\n%@", responseString);
 
     }];
     [task resume];
@@ -115,7 +122,7 @@
         NSString *responseString = [[NSString alloc] initWithData: data
                                                          encoding: NSASCIIStringEncoding];
         XCTAssertTrue([responseString length] > 0, @"Expected a response string with content.");
-        NSLog(@"Full response:\n%@", responseString);
+        NSLog(@"Full finger response:\n%@", responseString);
     }];
     [task resume];
     long previousCount = -1;
@@ -126,7 +133,7 @@
             previousCount = byteCount;
         }
     }
-    XCTAssertNotEqual(previousCount, -1, @"Did not recieve any bytes.");
+    XCTAssert(previousCount > 0, @"Did not recieve any bytes.");
 }
 
 -(void)testFingerBadHost
@@ -173,12 +180,60 @@
             previousCount = byteCount;
         }
     }
-    XCTAssertNotEqual(previousCount, -1, @"Did not recieve any bytes.");
+    XCTAssert(previousCount > 0, @"Did not recieve any bytes.");
 }
 
 -(void)testDaytimeBadHost
 {
     NSURLSessionDataTask *task = [session dataTaskWithURL:[NSURL URLWithString:@"daytime://postneo.com/"] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        XCTAssertNotNil(error, @"Expected non-nil error.");
+        XCTAssertEqual(error.code, 500, @"Expected error 500.");
+        NSLog(@"Response encoded %@ with error %@.", response.MIMEType, error);
+    }];
+    [task resume];
+    while (task.state != NSURLSessionTaskStateCompleted) {
+        // Ensure that task completes.
+    }
+}
+
+# pragma mark - EchoURLProtocol
+
+-(void)testCanHandleEcho
+{
+    BOOL canHandle = [EchoURLProtocol canInitWithRequest:[NSURLRequest requestWithURL:echo]];
+    XCTAssertTrue(canHandle, @"Expected EchoURLProtocol to handle echo:// URLs.");
+    NSURL *notEcho = [NSURL URLWithString:@"http://postneo.com/"];
+    canHandle = [EchoURLProtocol canInitWithRequest:[NSURLRequest requestWithURL:notEcho]];
+    XCTAssertFalse(canHandle, @"EchoURLProtocol should not be able to handle other kinds of URLs.");
+}
+
+- (void)testEcho
+{
+    NSURLSessionDataTask *task = [session dataTaskWithURL:echo completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        XCTAssertEqualObjects(response.URL, echo, @"Resposne URL did not match request URL.");
+        NSLog(@"Response encoded %@ with error %@.", response.MIMEType, error);
+        NSString *responseString = [[NSString alloc] initWithData: data
+                                                         encoding: NSASCIIStringEncoding];
+        XCTAssertTrue([responseString length] > 0, @"Expected a response string with content.");
+        XCTAssertEqualObjects(responseString, response.URL.query, @"Expected identical query string and response.");
+        NSLog(@"Full echo response:\n%@", responseString);
+
+    }];
+    [task resume];
+    long previousCount = (long)task.countOfBytesReceived;
+    while (task.state != NSURLSessionTaskStateCompleted) {
+        long byteCount = (long)task.countOfBytesReceived;
+        if (previousCount != byteCount) {
+            NSLog(@"Running in state %d with %ld bytes recieved.", task.state, byteCount);
+            previousCount = byteCount;
+        }
+    }
+    XCTAssert(previousCount > 0, @"Did not recieve any bytes.");
+}
+
+-(void)testEchoBadHost
+{
+    NSURLSessionDataTask *task = [session dataTaskWithURL:[NSURL URLWithString:@"echo://postneo.com/"] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         XCTAssertNotNil(error, @"Expected non-nil error.");
         XCTAssertEqual(error.code, 500, @"Expected error 500.");
         NSLog(@"Response encoded %@ with error %@.", response.MIMEType, error);

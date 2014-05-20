@@ -1,14 +1,15 @@
 Pod::Spec.new do |s|
   s.name             = "ArchaicProtocols"
-  s.version          = "0.1.3-pre"
+  s.version          = "0.1.3"
   s.summary          = "NSURLProtocol wrappers for archaic protocols."
   s.description      = <<-DESC
                        Currently supported:
+                       * Daytime
+                       * Echo
                        * Finger
                        * QOTD
                                               
-                       Planned protocol support:
-                       * Echo                      
+                       Planned protocol support:                    
                        * Gopher
                        DESC
   s.homepage         = "https://github.com/mcroydon/ArchaicProtocols"

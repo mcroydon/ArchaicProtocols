@@ -1,8 +1,9 @@
 # ArchaicProtocols CHANGELOG
 
-## 0.1.3-pre
+## 0.1.3
 
 * Daytime protocol support.
+* Echo protocol support.
 * Documentation and test improvements.
 
 ## 0.1.2
