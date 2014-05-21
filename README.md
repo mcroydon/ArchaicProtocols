@@ -32,18 +32,6 @@ Wishlist:
 
 // Create a Finger URL (the user part is optional)
 NSURL *finger = [NSURL URLWithString:@"finger://help@bathroom.mit.edu/"];
-
-// Get the default session
-NSURLSession *session = [NSURLSession sharedSession];
-
-// Create a task and run it
-NSURLSessionDataTask *task = [session dataTaskWithURL:finger completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-    NSLog(@"Response encoded %@ with error %@.", response.MIMEType, error);
-    NSString *responseString = [[NSString alloc] initWithData: data
-                                                     encoding: NSASCIIStringEncoding];
-    NSLog(@"Full response:\n%@", responseString);
-}];
-[task resume];
 ```
 
 ### QOTD
