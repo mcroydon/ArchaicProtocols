@@ -5,7 +5,7 @@
 
 ## Introduction
 
-ArchaicProtocols makes older text-based protocols available to iOS developers by subclassing [NSURLProtocol](https://developer.apple.com/library/mac/documentation/cocoa/reference/foundation/classes/NSURLProtocol_Class/Reference/Reference.html).
+ArchaicProtocols makes older text-based protocols available to iOS and OS X developers by subclassing [NSURLProtocol](https://developer.apple.com/library/mac/documentation/cocoa/reference/foundation/classes/NSURLProtocol_Class/Reference/Reference.html).
 
 Why? Why not!
 

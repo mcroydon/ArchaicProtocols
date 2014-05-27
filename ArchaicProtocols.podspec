@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "ArchaicProtocols"
-  s.version          = "0.1.3"
+  s.version          = "0.1.4"
   s.summary          = "NSURLProtocol wrappers for archaic protocols."
   s.description      = <<-DESC
                        Currently supported:
@@ -18,8 +18,8 @@ Pod::Spec.new do |s|
   s.source           = { :git => "https://github.com/mcroydon/ArchaicProtocols.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/mc'
 
-  s.platform     = :ios, '7.0'
   s.ios.deployment_target = '7.0'
+  s.osx.deployment_target = '10.9'
   s.requires_arc = true
 
   s.source_files = 'Classes'
